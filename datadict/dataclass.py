@@ -19,8 +19,11 @@ def dataclass(cls=None, **kwargs):
 
         # Add item access
         dataclasses._set_new_attribute(cls, "__getitem__", _getitem)
+        dataclasses._set_new_attribute(cls,   "get"      , _getitem)
+
         dataclasses._set_new_attribute(cls, "__setitem__", _setitem)
         dataclasses._set_new_attribute(cls, "__delitem__", _delitem)
+        
         dataclasses._set_new_attribute(cls, "asdict", _asdict)
 
         return cls
