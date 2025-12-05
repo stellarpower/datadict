@@ -23,7 +23,7 @@ def dataclass(cls=None, **kwargs):
 
         dataclasses._set_new_attribute(cls, "__setitem__", _setitem)
         dataclasses._set_new_attribute(cls, "__delitem__", _delitem)
-        
+
         dataclasses._set_new_attribute(cls, "asdict", _asdict)
 
         return cls
@@ -31,11 +31,13 @@ def dataclass(cls=None, **kwargs):
     return wrap if cls is None else wrap(cls)
 
 
-def _getitem(self, key):
+def _getitem(self, key, default=None):
     """Get an attribute from a dataclass using item access"""
     try:
         return getattr(self, key)
     except AttributeError:
+        if default is not None:
+            return default
         raise KeyError(key) from None
 
 
