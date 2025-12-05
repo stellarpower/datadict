@@ -26,6 +26,10 @@ def dataclass(cls=None, **kwargs):
 
         dataclasses._set_new_attribute(cls, "asdict", _asdict)
 
+        dataclasses._set_new_attribute(cls, "asdict", _asdict)
+
+        dataclasses._set_new_attribute(cls, "__contains__", _contains)
+
         return cls
 
     return wrap if cls is None else wrap(cls)
@@ -54,3 +58,7 @@ def _delitem(self, key):
 def _asdict(self):
     """Convert the dataclass to a dictionary"""
     return dataclasses.asdict(self)
+
+
+def _contains(self, key):
+    return hasattr(self, key)
